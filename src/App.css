@@ -1,5 +1,8 @@
-.ChartContainer{
-    padding: 20%;
-    width: 835px;
-    height: 320px;
+.lineChart{
+    width: 260px;
+    height: 260px;
+}
+
+.time__label{
+    padding: 2px;
 }

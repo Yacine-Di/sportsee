@@ -1,0 +1,17 @@
+.BarChart__Container{
+    padding: 20%;
+    width: 835px;
+    height: 320px;
+    position: relative;
+}
+
+.BarChart__Title{
+    position: absolute;
+    margin-top: 0;
+    left: 20px;
+    font-size: 15px;
+}
+
+.legend--black{
+    color: black;
+}

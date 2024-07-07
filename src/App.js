@@ -1,81 +1,57 @@
 import datas from './datas/MockedDatas.json'
 import './App.css'
-import {
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-    ResponsiveContainer,
-} from 'recharts'
+import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
+import { PureComponent } from 'react'
 
 function App() {
-    const ThomasActivity = datas.USER_ACTIVITY.find((userId) => (userId = 12))
-    const sessions = ThomasActivity.sessions
-    console.log(sessions)
-
+    const ThomasAverageActivity = datas.USER_AVERAGE_SESSIONS.find(
+        (userId) => (userId = 12),
+    )
+    const weekDays = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
     const customToolTip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             return (
                 <div
                     className="custom-tooltip"
                     style={{
-                        backgroundColor: 'red',
-                        color: 'white',
+                        backgroundColor: 'white',
+                        color: 'black',
                         textAlign: 'center',
-                        padding: '5px',
                     }}
                 >
-                    <p className="label">{`${payload[0].value}kg`}</p>
-                    <p className="label">{`${payload[1].value}Kcal`}</p>
+                    <p className="time__label">{`${payload[0].value}min`}</p>
                 </div>
             )
         }
     }
 
+    function formatAxis(tick) {
+        return weekDays[tick]
+    }
     return (
-        <div className="ChartContainer">
+        <div className="lineChart">
             <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                    width={800}
-                    height={500}
-                    data={sessions}
-                    margin={{
-                        top: 20,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
+                <LineChart
+                    width={500}
+                    height={300}
+                    data={ThomasAverageActivity.sessions}
+                    style={{ backgroundColor: '#FF0000', borderRadius: '5px' }}
                 >
-                    <CartesianGrid strokeDasharray="3" vertical={false} />
-                    <XAxis dataKey={ThomasActivity.sessions.day} />
-                    <YAxis orientation="right" axisLine={false} />
+                    <XAxis
+                        dataKey={ThomasAverageActivity.sessions.day}
+                        tickFormatter={formatAxis}
+                        axisLine={false}
+                        tickLine={false}
+                    />
                     <Tooltip content={customToolTip} />
-                    <Legend
-                        verticalAlign="top"
-                        align="right"
-                        iconType="circle"
-                        wrapperStyle={{
-                            top: '0',
-                        }}
+                    <Line
+                        type="monotone"
+                        dataKey="sessionLength"
+                        stroke="#FFFFFF"
+                        activeDot={{ r: 4 }}
+                        dot={false}
                     />
-                    <Bar
-                        dataKey="kilogram"
-                        fill="#282D30"
-                        radius={[10, 10, 0, 0]}
-                        name="Poids (kg)"
-                        barSize={7}
-                    />
-                    <Bar
-                        dataKey="calories"
-                        fill="#E60000"
-                        radius={[10, 10, 0, 0]}
-                        name="Calories brûlées (kCal)"
-                        barSize={7}
-                    />
-                </BarChart>
+                </LineChart>
             </ResponsiveContainer>
         </div>
     )
