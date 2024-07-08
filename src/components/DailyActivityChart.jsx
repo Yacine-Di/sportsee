@@ -35,8 +35,8 @@ function DailyActivityChart() {
     }
 
     return (
-        <div className="BarChart">
-            <p className="BarChart__Title">Activité Quotidienne</p>
+        <div className="barChart">
+            <p className="barChart__Title">Activité Quotidienne</p>
             <ResponsiveContainer
                 width="100%"
                 height="100%"

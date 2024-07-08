@@ -1,7 +1,6 @@
 import datas from './datas/MockedDatas.json'
 import './App.css'
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import { PureComponent } from 'react'
 
 function App() {
     const ThomasAverageActivity = datas.USER_AVERAGE_SESSIONS.find(
@@ -25,11 +24,9 @@ function App() {
         }
     }
 
-    function formatAxis(tick) {
-        return weekDays[tick]
-    }
     return (
         <div className="lineChart">
+            <p className="lineChart__title">Durée moyenne des sessions</p>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     width={500}
@@ -37,17 +34,32 @@ function App() {
                     data={ThomasAverageActivity.sessions}
                     style={{ backgroundColor: '#FF0000', borderRadius: '5px' }}
                 >
+                    <defs>
+                        <linearGradient id="linear">
+                            <stop
+                                offset="0%"
+                                stopColor="rgba(255, 255, 255, 0.4)"
+                            />
+                            <stop
+                                offset="100%"
+                                stopColor="rgba(255, 255, 255, 1)"
+                            />
+                        </linearGradient>
+                    </defs>
                     <XAxis
                         dataKey={ThomasAverageActivity.sessions.day}
-                        tickFormatter={formatAxis}
+                        tickFormatter={(tick) => weekDays[tick]}
                         axisLine={false}
                         tickLine={false}
+                        tick={{ fill: 'rgba(255, 255, 255, 0.7)' }}
+                        padding={{ left: 10, right: 10 }}
                     />
                     <Tooltip content={customToolTip} />
                     <Line
                         type="monotone"
                         dataKey="sessionLength"
-                        stroke="#FFFFFF"
+                        stroke="url(#linear)"
+                        strokeWidth={2}
                         activeDot={{ r: 4 }}
                         dot={false}
                     />
