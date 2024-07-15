@@ -1,0 +1,14 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    margin-left: 200px;
+}
+
+.home-title{
+    font-size: 48px;
+    margin-bottom: 0;
+}
+
+.title--red{
+    color: #FF0101;
+}

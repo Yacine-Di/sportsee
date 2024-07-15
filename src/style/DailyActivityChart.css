@@ -1,15 +1,18 @@
-.barChart__Container{
-    padding: 20%;
+.barChart{
     width: 835px;
     height: 320px;
     position: relative;
+    padding: 20px;
+    background-color: #FBFBFB;
+    border-radius: 5px;
 }
 
-.barChart__Title{
+.barChart-title{
     position: absolute;
     margin-top: 0;
-    left: 20px;
+    margin-left: 20px;
     font-size: 15px;
+    font-weight: 700;
 }
 
 .legend--black{

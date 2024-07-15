@@ -1,4 +1,4 @@
-import datas from './datas/MockedDatas.json'
+import datas from '../datas/MockedDatas.json'
 import '../style/DailyActivityChart.css'
 import {
     BarChart,
@@ -36,12 +36,8 @@ function DailyActivityChart() {
 
     return (
         <div className="barChart">
-            <p className="barChart__Title">Activité Quotidienne</p>
-            <ResponsiveContainer
-                width="100%"
-                height="100%"
-                style={{ backgroundColor: '#FBFBFB' }}
-            >
+            <p className="barChart-title">Activité Quotidienne</p>
+            <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                     width={800}
                     height={500}
