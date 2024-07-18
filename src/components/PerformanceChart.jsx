@@ -43,10 +43,10 @@ function PerformanceChart() {
                     outerRadius="80%"
                     data={formatedData}
                     margin={{
-                        top: 10,
-                        right: 10,
-                        left: 10,
-                        bottom: 10,
+                        top: 15,
+                        right: 15,
+                        left: 15,
+                        bottom: 15,
                     }}
                 >
                     <PolarGrid />
@@ -54,6 +54,7 @@ function PerformanceChart() {
                         dataKey="kind"
                         stroke="#FFF"
                         fontSize={12}
+                        tickLine={false}
                     />
                     <Radar
                         dataKey="value"
