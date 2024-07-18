@@ -1,5 +1,4 @@
-import datas from '../datas/MockedDatas.json'
-import '../style/DailyActivityChart.css'
+import '../styles/DailyActivityChart.css'
 import {
     BarChart,
     Bar,
@@ -10,10 +9,13 @@ import {
     Legend,
     ResponsiveContainer,
 } from 'recharts'
+import { useFetch } from '../utils/hooks'
+import { getActivityInfos } from '../services/Api'
 
 function DailyActivityChart() {
-    const ThomasActivity = datas.USER_ACTIVITY.find((userId) => (userId = 12))
-    const sessions = ThomasActivity.sessions
+    const { data, error } = useFetch(getActivityInfos)
+    const sessions = data?.data?.sessions
+    const day = data?.data?.sessions.day
 
     const customToolTip = ({ active, payload }) => {
         if (active && payload && payload.length) {
@@ -34,7 +36,9 @@ function DailyActivityChart() {
         }
     }
 
-    return (
+    return !data || error ? (
+        <span className="erreur">Erreur</span>
+    ) : (
         <div className="barChart">
             <p className="barChart-title">Activité Quotidienne</p>
             <ResponsiveContainer width="100%" height="100%">
@@ -50,7 +54,7 @@ function DailyActivityChart() {
                     }}
                 >
                     <CartesianGrid strokeDasharray="3" vertical={false} />
-                    <XAxis dataKey={ThomasActivity.sessions.day} />
+                    <XAxis dataKey={day} />
                     <YAxis orientation="right" axisLine={false} />
                     <Tooltip content={customToolTip} />
                     <Legend

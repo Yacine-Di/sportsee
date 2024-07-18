@@ -1,11 +1,11 @@
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
-import datas from '../datas/MockedDatas.json'
-import '../style/AverageTimeSession.css'
+import '../styles/AverageTimeSession.css'
+import { useFetch } from '../utils/hooks'
+import { getAverageInfos } from '../services/Api'
 
 function AverageSessionChart() {
-    const ThomasAverageActivity = datas.USER_AVERAGE_SESSIONS.find(
-        (userId) => (userId = 12),
-    )
+    const { data, error } = useFetch(getAverageInfos)
+    const sessions = data?.data?.sessions
     const weekDays = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
     const customToolTip = ({ active, payload }) => {
         if (active && payload && payload.length) {
@@ -24,14 +24,16 @@ function AverageSessionChart() {
         }
     }
 
-    return (
+    return !sessions || error ? (
+        <span className="erreur">Données non conformes</span>
+    ) : (
         <div className="lineChart__container">
             <p className="lineChart__title">Durée moyenne des sessions</p>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                     width={500}
                     height={300}
-                    data={ThomasAverageActivity.sessions}
+                    data={sessions}
                     style={{ backgroundColor: '#FF0000', borderRadius: '5px' }}
                 >
                     <defs>
@@ -47,7 +49,7 @@ function AverageSessionChart() {
                         </linearGradient>
                     </defs>
                     <XAxis
-                        dataKey={ThomasAverageActivity.sessions.day}
+                        dataKey={sessions.day}
                         tickFormatter={(tick) => weekDays[tick]}
                         axisLine={false}
                         tickLine={false}

@@ -11,16 +11,12 @@ export function useFetch(fn) {
                 const data = await fn(id)
                 setData(data)
             } catch (err) {
-                console.log(err)
                 setError(true)
             }
         }
 
         fetchData()
-    }, [])
+    }, [fn])
 
-    if (error) {
-        return <span>Il y a un problème</span>
-    }
     return { data, error }
 }

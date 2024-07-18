@@ -1,4 +1,4 @@
-import '../style/DietInfos.css'
+import '../styles/DietInfos.css'
 import caloriesIcon from '../assets/calories-icon.png'
 import carbsIcon from '../assets/carbs-icon.png'
 import proteinIcon from '../assets/protein-icon.png'

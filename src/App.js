@@ -1,12 +1,16 @@
 import './App.css'
-import Navs from './components/Navs'
+import LeftNav from './components/LeftNav'
+import TopNav from './components/TopNav'
 import Home from './pages/Home'
 
 function App() {
     return (
         <>
-            <Navs />
-            <Home />
+            <TopNav />
+            <div className="leftNav__Home">
+                <LeftNav />
+                <Home />
+            </div>
         </>
     )
 }

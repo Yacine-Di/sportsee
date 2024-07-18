@@ -1,5 +1,4 @@
-import datas from '../datas/MockedDatas.json'
-import '../style/PerformanceChart.css'
+import '../styles/PerformanceChart.css'
 import {
     Radar,
     RadarChart,
@@ -7,11 +6,12 @@ import {
     PolarAngleAxis,
     ResponsiveContainer,
 } from 'recharts'
+import { useFetch } from '../utils/hooks'
+import { getPerformanceInfos } from '../services/Api'
 
 function PerformanceChart() {
-    const ThomasPerformance = datas.USER_PERFORMANCE.find(
-        (usersData) => usersData.userId === 18,
-    )
+    const { data, error } = useFetch(getPerformanceInfos)
+    const userPerformance = data?.data?.data
 
     const kinds = [
         'Intensité',
@@ -22,11 +22,15 @@ function PerformanceChart() {
         'Cardio',
     ]
 
-    const formatedData = ThomasPerformance.data.map((d) => {
-        return { value: d.value, kind: kinds[d.kind - 1] }
-    })
+    const formatedData = userPerformance
+        ? userPerformance.map((d) => {
+              return { value: d.value, kind: kinds[d.kind - 1] }
+          })
+        : null
 
-    return (
+    return !formatedData || error ? (
+        <span className="erreur">Données non conformes</span>
+    ) : (
         <div className="radarChart">
             <ResponsiveContainer
                 width="100%"

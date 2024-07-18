@@ -1,0 +1,4 @@
+.leftNav__Home{
+    display: flex;
+    flex-direction: row;
+}

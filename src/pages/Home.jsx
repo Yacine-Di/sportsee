@@ -1,13 +1,16 @@
 import GeneralInfosZone from '../components/GeneralInfosZone'
-import '../style/Home.css'
+import '../styles/Home.css'
 import { getGeneralDatas } from '../services/Api'
 import { useFetch } from '../utils/hooks'
 
 function Home() {
     const { data, error } = useFetch(getGeneralDatas)
-    const name = data ? data.data?.userInfos.firstName : ''
+    const name = data?.data?.userInfos.firstName
+    console.log(data)
 
-    return (
+    return data === 'can not get user' || error ? (
+        <span className="erreur">Erreur lors du chargement des données</span>
+    ) : (
         <main className="home">
             <section className="title__congrat">
                 <h1 className="home-title">

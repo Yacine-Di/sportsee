@@ -17,3 +17,9 @@
 .time__label{
     padding: 5px;
 }
+
+.erreur{
+    color: red;
+    font-weight: 600;
+    font-size: 20px;
+}

@@ -1,36 +1,37 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
-import mockeDatas from '../datas/MockedDatas.json'
-import '../style/ScoreChart.css'
+import '../styles/ScoreChart.css'
+import { useFetch } from '../utils/hooks'
+import { getGeneralDatas } from '../services/Api'
 
 function ScoreChart() {
-    const userMainData = mockeDatas.USERS_MAIN_DATA.find(
-        (usersData) => usersData.id === 18,
-    )
-
-    const score = userMainData.todayScore || userMainData.score * 100
+    const { data, error } = useFetch(getGeneralDatas)
+    const userScore = data?.data
+    const score = userScore?.todayScore * 100 || userScore?.score * 100
     const rest = 100 - score
 
-    const data = [
+    const chartDatas = [
         { name: 'score', value: score },
         { name: 'rest', value: rest },
     ]
 
     const COLORS = ['#FF0000', 'transparent']
 
-    return (
+    return !userScore || error ? (
+        <span className="erreur">Données non conformes</span>
+    ) : (
         <div className="scoreChart__Container">
             <p className="scoreChart-title">Score</p>
             <ResponsiveContainer width="100%" height="100%">
                 <PieChart width={260} height={260}>
                     <Pie
-                        data={data}
+                        data={chartDatas}
                         dataKey="value"
                         innerRadius={60}
                         outerRadius={80}
                         cornerRadius={50}
                         labelLine={true}
                     >
-                        {data.map((d, index) => (
+                        {chartDatas.map((d, index) => (
                             <Cell
                                 key={`cell-${index}`}
                                 fill={COLORS[index % COLORS.length]}

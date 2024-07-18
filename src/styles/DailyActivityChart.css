@@ -18,3 +18,9 @@
 .legend--black{
     color: black;
 }
+
+.erreur{
+    color: red;
+    font-weight: 600;
+    font-size: 20px;
+}
