@@ -6,7 +6,6 @@ import { useFetch } from '../utils/hooks'
 function Home() {
     const { data, error } = useFetch(getGeneralDatas)
     const name = data?.data?.userInfos.firstName
-    console.log(data)
 
     return data === 'can not get user' || error ? (
         <span className="erreur">Erreur lors du chargement des données</span>

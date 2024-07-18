@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     margin-left: 150px;
+    width: 100%;
 }
 
 .home-title{
@@ -14,6 +15,7 @@
 }
 
 .erreur{
+    margin: 100px;
     color: red;
     font-weight: 600;
     font-size: 20px;
