@@ -2,15 +2,15 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 import '../styles/ScoreChart.css'
 import { useFetch } from '../utils/hooks'
 import { getGeneralDatas } from '../services/Api'
+import { getUserScore } from '../common/models'
 
 function ScoreChart() {
     const { data, error } = useFetch(getGeneralDatas)
-    const userScore = data?.data
-    const score = userScore?.todayScore * 100 || userScore?.score * 100
-    const rest = 100 - score
+    const userScore = getUserScore(data)
+    const rest = 100 - userScore
 
     const chartDatas = [
-        { name: 'score', value: score },
+        { name: 'score', value: userScore },
         { name: 'rest', value: rest },
     ]
 
@@ -42,7 +42,7 @@ function ScoreChart() {
             </ResponsiveContainer>
             <div className="text-circle">
                 <p className="score">
-                    <span className="score--bold">{score}%</span>
+                    <span className="score--bold">{userScore}%</span>
                     <br />
                     de votre objectif
                 </p>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export function useFetch(fn) {
-    const id = 18
+    const id = 12
     const [data, setData] = useState({})
     const [error, setError] = useState(false)
 

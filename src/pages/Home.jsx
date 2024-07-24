@@ -2,10 +2,11 @@ import GeneralInfosZone from '../components/GeneralInfosZone'
 import '../styles/Home.css'
 import { getGeneralDatas } from '../services/Api'
 import { useFetch } from '../utils/hooks'
+import { getUserFirstName } from '../common/models'
 
 function Home() {
     const { data, error } = useFetch(getGeneralDatas)
-    const name = data?.data?.userInfos.firstName
+    const name = getUserFirstName(data)
 
     return data === 'can not get user' || error ? (
         <span className="erreur">Erreur lors du chargement des données</span>

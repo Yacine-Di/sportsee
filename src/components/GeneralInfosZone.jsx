@@ -6,26 +6,16 @@ import ScoreChart from './ScoreChart'
 import DietInfos from './DietInfos'
 import { useFetch } from '../utils/hooks'
 import { getGeneralDatas } from '../services/Api'
+import { getUserDietDatas, getUserKeyDatas } from '../common/models'
 
 function GeneralInfosZone() {
     const { data, error } = useFetch(getGeneralDatas)
-    const userKeyDatas = data?.data?.keyData
-    const userDietDatas = []
-
-    if (userKeyDatas) {
-        for (const [key, value] of Object.entries(userKeyDatas)) {
-            let obj = {
-                name: key,
-                value: value,
-                icon: '',
-            }
-            userDietDatas.push(obj)
-        }
-    }
+    const userDietDatas = getUserKeyDatas(data)
+    const dietFormatedDatas = getUserDietDatas(userDietDatas)
 
     return error ? (
         <span className="erreur">Erreur lors du chargement des données</span>
-    ) : userKeyDatas ? (
+    ) : userDietDatas ? (
         <section className="charts__diet">
             <section className="charts">
                 <DailyActivityChart />
@@ -36,11 +26,11 @@ function GeneralInfosZone() {
                 </section>
             </section>
             <section className="diet-zone">
-                {userDietDatas.map((dietInfo) => (
+                {dietFormatedDatas.map((dietInfo) => (
                     <div key={dietInfo.name}>
                         <DietInfos
                             dietInfoValue={dietInfo.value}
-                            categorie={userDietDatas.indexOf(dietInfo)}
+                            categorie={dietFormatedDatas.indexOf(dietInfo)}
                         />
                     </div>
                 ))}

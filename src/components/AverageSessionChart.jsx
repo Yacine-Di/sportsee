@@ -2,11 +2,13 @@ import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from 'recharts'
 import '../styles/AverageTimeSession.css'
 import { useFetch } from '../utils/hooks'
 import { getAverageInfos } from '../services/Api'
+import { getUserSessions } from '../common/models'
 
 function AverageSessionChart() {
     const { data, error } = useFetch(getAverageInfos)
-    const sessions = data?.data?.sessions
+    const sessions = getUserSessions(data)
     const weekDays = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
+
     const customToolTip = ({ active, payload }) => {
         if (active && payload && payload.length) {
             return (

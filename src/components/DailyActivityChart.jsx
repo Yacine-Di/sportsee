@@ -11,11 +11,12 @@ import {
 } from 'recharts'
 import { useFetch } from '../utils/hooks'
 import { getActivityInfos } from '../services/Api'
+import { getUserDay, getUserSessions } from '../common/models'
 
 function DailyActivityChart() {
     const { data, error } = useFetch(getActivityInfos)
-    const sessions = data?.data?.sessions
-    const day = data?.data?.sessions.day
+    const sessions = getUserSessions(data)
+    const day = getUserDay(sessions)
 
     const customToolTip = ({ active, payload }) => {
         if (active && payload && payload.length) {

@@ -8,11 +8,10 @@ import {
 } from 'recharts'
 import { useFetch } from '../utils/hooks'
 import { getPerformanceInfos } from '../services/Api'
+import { getUserPerfomance } from '../common/models'
 
 function PerformanceChart() {
     const { data, error } = useFetch(getPerformanceInfos)
-    const userPerformance = data?.data?.data
-
     const kinds = [
         'Intensité',
         'Vitesse',
@@ -22,13 +21,9 @@ function PerformanceChart() {
         'Cardio',
     ]
 
-    const formatedData = userPerformance
-        ? userPerformance.map((d) => {
-              return { value: d.value, kind: kinds[d.kind - 1] }
-          })
-        : null
+    const userPerformance = getUserPerfomance(data, kinds)
 
-    return !formatedData || error ? (
+    return !userPerformance || error ? (
         <span className="erreur">Données non conformes</span>
     ) : (
         <div className="radarChart">
@@ -41,7 +36,7 @@ function PerformanceChart() {
                     cx="50%"
                     cy="50%"
                     outerRadius="80%"
-                    data={formatedData}
+                    data={userPerformance}
                     margin={{
                         top: 15,
                         right: 15,
