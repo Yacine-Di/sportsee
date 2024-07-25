@@ -44,8 +44,6 @@ function DailyActivityChart() {
             <p className="barChart-title">Activité Quotidienne</p>
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart
-                    width={800}
-                    height={500}
                     data={sessions}
                     margin={{
                         top: 20,

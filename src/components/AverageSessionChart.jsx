@@ -33,8 +33,6 @@ function AverageSessionChart() {
             <p className="lineChart__title">Durée moyenne des sessions</p>
             <ResponsiveContainer width="100%" height="100%">
                 <LineChart
-                    width={500}
-                    height={300}
                     data={sessions}
                     style={{ backgroundColor: '#FF0000', borderRadius: '5px' }}
                 >

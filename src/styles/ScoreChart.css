@@ -1,5 +1,6 @@
 .scoreChart__Container{
-    width: 260px;
+    max-width: 300px;
+    width: 30%;
     height: 260px;
     background-color: #FBFBFB;
     position: relative;

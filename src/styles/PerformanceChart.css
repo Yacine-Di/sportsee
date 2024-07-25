@@ -1,5 +1,6 @@
 .radarChart{
-    width: 260px;
+    max-width: 300px;
+    width: 30%;
     height: 260px;
 }
 
